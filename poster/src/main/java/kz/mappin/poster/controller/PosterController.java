@@ -25,25 +25,46 @@ public class PosterController {
         return "personalised-map-poster";
     }
 
+//    @PostMapping("/poster/add")
+//    public String addPoster(@RequestParam String style, @RequestParam String layout, @RequestParam String labelTitle,
+//                            @RequestParam String labelSubTitle, @RequestParam String labelLocation, @RequestParam String size,
+//                            @RequestParam Boolean updateCoor,
+//                            Model model){
+//        if(style == null){
+//            System.out.println("NULL");
+//        }
+//
+//        Poster poster = new Poster();
+//        poster.setColor(style);
+//        poster.setLayouts(layout);
+//        poster.setTitle(labelTitle);
+//        poster.setSubtitle(labelSubTitle);
+//        poster.setFullCoor(labelLocation);
+//        poster.setSize(size);
+//        poster.setUpdateCoor(updateCoor);
+//
+//        service.create(poster);
+//        return "redirect:/";
+//    }
+
     @PostMapping("/poster/add")
-    public String addPoster(@RequestParam String style, @RequestParam String layout, @RequestParam String labelTitle,
-                            @RequestParam String labelSubTitle, @RequestParam String labelLocation, @RequestParam String size,
-                            @RequestParam Boolean updateCoor,
+    public String addPoster(@RequestParam String labelTitle, @RequestParam String labelSubTitle, @RequestParam String labelLocation,@RequestParam String size,
                             Model model){
-        if(style == null){
-            System.out.println("NULL");
-        }
 
         Poster poster = new Poster();
-        poster.setColor(style);
-        poster.setLayouts(layout);
         poster.setTitle(labelTitle);
         poster.setSubtitle(labelSubTitle);
         poster.setFullCoor(labelLocation);
         poster.setSize(size);
-        poster.setUpdateCoor(updateCoor);
 
         service.create(poster);
         return "redirect:/";
+    }
+
+    @GetMapping("/poster/all")
+    public String allPosters(Model model){
+        Iterable<Poster> posters = repository.findAll();
+        model.addAttribute("posters", posters);
+        return "personalised-map-poster";
     }
 }

@@ -44,4 +44,7 @@ public class Poster {
 
     @Column(name ="updateCoor")
     private Boolean updateCoor;
+
+    @Column(name = "price")
+    private Integer price;
 }
